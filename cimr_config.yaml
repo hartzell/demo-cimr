@@ -30,7 +30,7 @@ github_api_token: SET ME VIA ENV VAR!
 # Base URL for API access to GitHub.
 # Public: github_api_url: http://api.github..com
 # Enterprise: github_api_url: http://github.mycompany.com/api/v3
-github_api_url: http://api.github.com
+github_api_url: https://api.github.com
 
 # Username and private part of ssh key for access to slaves, the key should
 # probably be set via the JENKINS_SLAVES_PRIVATE_KEY environment variable.
