@@ -10,13 +10,13 @@ mydir=$(pwd)
 # e.g. missing files
 JENKINS_GIT_PRIVATE_KEY="$(cat $HOME/.cimr-secrets/cimr-git-key)"
 JENKINS_SLAVES_PRIVATE_KEY="$(cat $HOME/.cimr-secrets/cimr-slaves-key)"
-JENKINS_GITHUB_TOKEN="$(cat ${HOME}/.cimr-secrets/github-token)"
+JENKINS_GITHUB_TOKEN="$(cat ${HOME}/.cimr-secrets/github-api-token)"
 JENKINS_ADMIN_PASSWORD="$(cat ${HOME}/.cimr-secrets/admin-password)"
 export JENKINS_GIT_PRIVATE_KEY JENKINS_SLAVES_PRIVATE_KEY \
        JENKINS_GITHUB_TOKEN JENKINS_ADMIN_PASSWORD
 
 docker run \
-  --name my-project-cimr \
+  --name demo-cimr \
   --detach \
   --restart=on-failure:5 \
   -v ${mydir}/cimr_config.yaml:/cimr_config.yaml \
