@@ -46,7 +46,7 @@ job('pull-request-to-develop-demo') {
         // way lies madness (it assumes `https://`, sigh...).  Use
         // `name()`, `url()`, and
         // `job/scm/properties/githubProjectUrl()`
-        name(demo')
+        name('demo-cimr')
         url('git@github.com:hartzell/demo-cimr')
         credentials('git-key')
         refspec('+refs/pull/*:refs/remotes/origin/pr/*')
