@@ -1,0 +1,101 @@
+# Publicly accessible URL for this jenkins.
+jenkins_public_url: http://138.68.57.4:4242/foo
+
+# Username and password for the admin user, the password should probably
+# be set via the JENKINS_ADMIN_PASSWORD environment variable.
+admin_username: admin
+admin_password: SET ME VIA ENV VAR!
+
+# ReplyTo address for admin/notification emails and host that will
+# relay email for us.
+email_reply_to_address: mickey.mouse@mycompany.com
+email_smtp_host: mailhost.mycompany.com
+
+# Username and private part of ssh key for working with Jenkins<->GitHub
+# git interactions, the password should probably be set via the
+# JENKINS_GIT_PRIVATE_KEY environment variable.
+git_key_username: hartzell
+git_key_private_part: SET ME VIA ENV VAR!
+
+# Email and user name for git configuration (can be overridden in jobs).
+git_config_email: hartzell@alerce.com
+git_config_name: George Hartzell
+
+# Personal access token used for GitHub api access, it should probably
+# be set via the JENKINS_GITHUB_TOKEN environment variable.
+# Scopes should include: admin:repo_hook, read:org, repo:public_repo, and
+# repo:status (or repo, for private repo access)
+github_api_token: SET ME VIA ENV VAR!
+
+# Base URL for API access to GitHub.
+# Public: github_api_url: http://api.github..com
+# Enterprise: github_api_url: http://github.mycompany.com/api/v3
+github_api_url: http://api.github.com
+
+# Username and private part of ssh key for access to slaves, the key should
+# probably be set via the JENKINS_SLAVES_PRIVATE_KEY environment variable.
+slaves_key_username: hartzell
+slaves_key_private_part: SET ME VIA ENV VAR!
+
+# Description of one or more slaves, each slave requires:
+#   name: a name
+#   description: some descriptive text
+#   working_dir: the working directory on the slave
+#   executor_count: number of executors to run on this slave
+#   label: label to which this slave belongs
+#   address: the slaves domain name or ip address.
+#   host_key: the public part of the slave machine's RSA host key.
+slaves:
+  - name: bloop
+    description: |
+      Four score and seven years ago, someone
+      gave a long speech.
+    working_dir: /tmp/cimr-demo-slave-working-dir
+    executor_count: 2
+    label: workers
+    address: 138.68.57.4
+    host_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFGZJNZP4Begh1RAVZp92Z8M322EIYxqhDx42v8lvC4kTNnmSjrQSBQWnq/M1g8hrsF3ZiTm6eK37QDLquIxAkU/SdwNYPZH8no1z6V2MubavsMjypdHTCh5UoIrlY5xD3L7y7PPmmivPmUYvAqVa8kifTlx69QjgBja6PmJJdc4wEryG/TK/w9V2qZUVYilpWTjzg7eHw923nw5DofNOUow4549v7A0tIsOmUBZyFMPFfx7AARtLcQeRoBYbWoxmG1sqW35zNtOp5N9J2LsOcfmCk+xOdYL6aywzQ95yvvQ6sY2X3ctyAuOxUDh+I72qOpNNZRbNEhm/U+bMT1m7P"
+
+# This next section adds jobs using the Jenkins Jobs DSL (this is a good
+# place to set up a seed job).
+#
+# HEADS UP: Be sure to set the git remote url in the seed job, the rest you
+# can use as is.
+#
+# You probably want to manage most of your jobs via the `jobs.groovy` script,
+# not here....
+#
+jobs:
+  # A seed job that reloads jobs from a file named `jobs.groovy`
+  # in a particular repository whenever there's a push to that repository's
+  # master branch.  Status is reported back to GitHub.
+  - |
+     job('seed') {
+       description("Seed job, loads jobs.groovy.  Managed by CIMR. NO GEFINGERPOKEN!")
+       logRotator {
+         numToKeep(5)
+       }
+       scm {
+         git {
+           remote {
+             // FIXME...
+             url('https://github.com/hartzell/demo-cimr')
+             credentials('git-key')
+           }
+           branch('master')
+         }
+       }
+       triggers {
+         githubPush()
+       }
+       publishers {
+         githubCommitNotifier()
+       }
+       steps {
+         dsl {
+           external('jobs.groovy')
+           removeAction('DELETE')
+           removeViewAction('DELETE')
+         }
+       }
+     }
