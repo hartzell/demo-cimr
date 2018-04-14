@@ -6,3 +6,10 @@ echo "Hello world!"
 """
     }
 }
+job('my-second-job') {
+    steps {
+        shell """#!/bin/bash
+echo "Hello world!"
+"""
+    }
+}
