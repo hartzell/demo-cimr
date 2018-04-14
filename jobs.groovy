@@ -35,7 +35,7 @@ job('pull-request-to-demo-cimr') {
     githubPullRequest {
       admins(['hartzell'])
       useGitHubHooks()
-      whiteListTargetBranches(['develop'])
+      // whiteListTargetBranches(['master'])
       allowMembersOfWhitelistedOrgsAsAdmin()
       extensions {
         commitStatus {
