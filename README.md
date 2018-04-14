@@ -1,3 +1,5 @@
+Whheee!
+
 # A demo CI Made Reliable setup
 
 This contains the specific bits needed to use CIMR to set up a CI
