@@ -12,7 +12,7 @@ echo "Hello world!"
 // (e.g. OK to test).
 // There's a bit of magic here, check out the Github Pull Request Builder
 // plugin docs...
-job('pull-request-to-demo-cimr') {
+job('fpull-request-to-demo-cimr') {
   scm {
     git {
       remote {
