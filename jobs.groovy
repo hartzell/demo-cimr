@@ -16,6 +16,7 @@ job('my-files-found-job') {
     steps {
         shell """#!/bin/bash
 echo "Hello world!"
+rm /tmp/do-it
 """
     }
 }
