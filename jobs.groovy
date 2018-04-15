@@ -1,13 +1,5 @@
-// a simple little jenkins job, proof of concept
-job('my-first-job') {
-    steps {
-        shell """#!/bin/bash
-echo "Hello world!"
-"""
-    }
-}
-
 job('my-files-found-job') {
+ triggers{
     filesFoundTrigger {
         spec('* * * * *')
         configs {
@@ -15,9 +7,20 @@ job('my-files-found-job') {
                 node('bloop')
                 directory('/tmp')
                 files('do-it')
+                ignoredFiles('')
+                triggerNumber('1')
             }
         }
     }
+  }
+    steps {
+        shell """#!/bin/bash
+echo "Hello world!"
+"""
+    }
+}
+// a simple little jenkins job, proof of concept
+job('my-first-job') {
     steps {
         shell """#!/bin/bash
 echo "Hello world!"
@@ -35,7 +38,7 @@ job('push-to-master') {
   scm {
     git {
       remote {
-        url('git@github.com:someuser/demo-cimr')
+        url('git@github.com:hartzell/demo-cimr')
         credentials('git-key')
       }
       branch('master')

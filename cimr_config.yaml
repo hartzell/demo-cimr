@@ -84,7 +84,7 @@ jobs:
              url('https://github.com/hartzell/demo-cimr')
              credentials('git-key')
            }
-           branch('master')
+           branch('bunny')
          }
        }
        triggers {
