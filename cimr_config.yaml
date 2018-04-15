@@ -48,15 +48,12 @@ slaves_key_private_part: SET ME VIA ENV VAR!
 slaves:
   - name: bloop
     description: |
-      This is the executor that we should use
-      when we want to use one that has a very long
-      description that illustrates YAML tricks.
+       I love lucy....
     working_dir: /tmp/cimr-demo-slave-working-dir
     executor_count: 2
     label: workers
     address: bunny.do.alerce.com
-    host_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHqg1SEPUFkGoFy8QcRuzRRcLMwkApev3NMFUxCeaCuR"
-    # host_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC04XTG7L1xJBn3fbmKMUsKHwltkECWyQteHslzRIhSDuscTVYvdtU1oJfF+qn2zM9DIj0KKw6WkAfWnLUPPmL2QkN2oBW2mHj9UWH0KSaWdPGRwwENoVtlDiDaOgWQFqGKill1AmeOH7rarHleNqX9Sm1XjWMgY9LWqtfaI02xz6fsbMtPHzpvCUPlojuw22ARl/hMeqW+bDUZ+rjk32P7dVdzx+QlZ8a795SxeGFPhxTGj3rjgr141AnRH8necjLkGRZBmTgPM9iuWOTflVD3x+YCnvE9h1gr29xBmZD4HQrY/PPInhM+ZMSYGfiMH7lx3AH3YM/vT4hEuqlY6z1p"
+    host_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC04XTG7L1xJBn3fbmKMUsKHwltkECWyQteHslzRIhSDuscTVYvdtU1oJfF+qn2zM9DIj0KKw6WkAfWnLUPPmL2QkN2oBW2mHj9UWH0KSaWdPGRwwENoVtlDiDaOgWQFqGKill1AmeOH7rarHleNqX9Sm1XjWMgY9LWqtfaI02xz6fsbMtPHzpvCUPlojuw22ARl/hMeqW+bDUZ+rjk32P7dVdzx+QlZ8a795SxeGFPhxTGj3rjgr141AnRH8necjLkGRZBmTgPM9iuWOTflVD3x+YCnvE9h1gr29xBmZD4HQrY/PPInhM+ZMSYGfiMH7lx3AH3YM/vT4hEuqlY6z1p"
 
 # This next section defines jobs to add using the Jenkins Job DSL.  The job(s)
 # will be created and executed as the final setup step.
