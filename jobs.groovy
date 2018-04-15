@@ -29,40 +29,6 @@ echo "Hello world!"
     }
 }
 
-// This job will fire whenever things are pushed to the master branch
-// (pushes, merges via the GUI).
-job('push-to-master') {
-  logRotator {
-    numToKeep(5)
-  }
-  concurrentBuild(false)
-  scm {
-    git {
-      remote {
-        url('git@github.com:hartzell/demo-cimr')
-        credentials('git-key')
-      }
-      branch('master')
-      extensions {
-        wipeOutWorkspace()
-      }
-    }
-  }
-  triggers {
-    githubPush()
-  }
-  steps {
-    shell '''#!/bin/sh
-sleep 42
-echo "Hello world!"
-true
-'''
-  }
-  publishers {
-    githubCommitNotifier()
-  }
-}
-
 // This job will fire whenever a Pull Request is created and/or whenever
 // one of the trigger phrases occurs in the PR's comments
 // (e.g. OK to test).
