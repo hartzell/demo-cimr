@@ -7,6 +7,24 @@ echo "Hello world!"
     }
 }
 
+job('my-files-found-job') {
+    filesFoundTrigger {
+        spec('* * * * *')
+        configs {
+            filesFoundTriggerConfig {
+                node('bloop')
+                directory('/tmp')
+                files('do-it')
+            }
+        }
+    }
+    steps {
+        shell """#!/bin/bash
+echo "Hello world!"
+"""
+    }
+}
+
 // This job will fire whenever things are pushed to the master branch
 // (pushes, merges via the GUI).
 job('push-to-master') {
