@@ -1,3 +1,14 @@
+// a simple little jenkins job, proof of concept
+job('my-first-job') {
+    steps {
+        shell """#!/bin/bash
+echo "Hello world!"
+"""
+    }
+}
+
+// Demo the files found trigger
+// Runs whenever it sees /tmp/do-it, and removes it.
 job('my-files-found-job') {
  triggers{
     filesFoundTrigger {
@@ -20,20 +31,14 @@ rm /tmp/do-it
 """
     }
 }
-// a simple little jenkins job, proof of concept
-job('my-first-job') {
-    steps {
-        shell """#!/bin/bash
-echo "Hello world!"
-"""
-    }
-}
 
 // This job will fire whenever a Pull Request is created and/or whenever
 // one of the trigger phrases occurs in the PR's comments
 // (e.g. OK to test).
 // There's a bit of magic here, check out the Github Pull Request Builder
 // plugin docs...
+// You can constrain the branches that will run by uncommenting/fixing the
+// white list below.
 job('pull-request-to-demo-cimr') {
   scm {
     git {
@@ -57,7 +62,7 @@ job('pull-request-to-demo-cimr') {
     githubPullRequest {
       admins(['hartzell'])
       useGitHubHooks()
-      // whiteListTargetBranches(['master'])
+      // whiteListTargetBranches(['develop'])
       allowMembersOfWhitelistedOrgsAsAdmin()
       extensions {
         commitStatus {
