@@ -6,6 +6,9 @@ jenkins_public_url: https://bunny.do.alerce.com/jenkins/demo-cimr
 admin_username: admin
 admin_password: SET ME VIA ENV VAR!
 
+# Enable anonymous read-only access to the console and API
+enable_anonymous_access: true
+
 # ReplyTo address for admin/notification emails and host that will
 # relay email for us.
 email_reply_to_address: hartzell@alerce.com
